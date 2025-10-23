@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Produto - GlobalAfiliados</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🌍 GlobalAfiliados</div>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#" id="logout">Sair</a>
+    </nav>
+  </header>
+
+  <main class="editar">
+    <h1>Editar Produto</h1>
+    <form id="editForm" class="produto-form">
+      <label>Nome do Produto</label>
+      <input type="text" id="name" required>
+
+      <label>Preço</label>
+      <input type="number" id="price" step="0.01" required>
+
+      <label>Moeda</label>
+      <select id="currency" required>
+        <option value="BRL">Real (R$)</option>
+        <option value="USD">Dólar (US$)</option>
+        <option value="EUR">Euro (€)</option>
+      </select>
+
+      <label>Descrição</label>
+      <textarea id="description"></textarea>
+
+      <label>Plataforma</label>
+      <select id="platform" required>
+        <option>Amazon</option>
+        <option>Mercado Livre</option>
+        <option>Magazine Luiza</option>
+      </select>
+
+      <label>Região</label>
+      <select id="region" required>
+        <option value="Brasil">Brasil</option>
+        <option value="Estados Unidos">Estados Unidos</option>
+        <option value="Europa">Europa</option>
+      </select>
+
+      <label>Link da Imagem</label>
+      <input type="text" id="image" placeholder="https://..." required>
+
+      <label>Link de Afiliado</label>
+      <input type="url" id="affiliateLink" placeholder="Cole o link do afiliado" required>
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+  </main>
+
+<script src="./js/config.js"></script>
+<script>
+const authData = JSON.parse(localStorage.getItem("auth"));
+if (!authData || Date.now() > authData.expiry) {
+  localStorage.removeItem("auth");
+  window.location.href = "index.html";
+}
+
+document.getElementById("logout").addEventListener("click", () => {
+  localStorage.removeItem("auth");
+  window.location.href = "index.html";
+});
+
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+
+async function loadProduct() {
+  try {
+    const res = await fetch(`${window.API_URL}/api/products/${productId}`);
+    const p = await res.json();
+
+    document.getElementById("name").value = p.name;
+    document.getElementById("price").value = p.price;
+    document.getElementById("currency").value = p.currency;
+    document.getElementById("description").value = p.description;
+    document.getElementById("platform").value = p.platform;
+    document.getElementById("region").value = p.region;
+    document.getElementById("image").value = p.image;
+    document.getElementById("affiliateLink").value = p.affiliateLink;
+  } catch (err) {
+    console.error("Erro ao carregar produto:", err);
+  }
+}
+
+document.getElementById("editForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const produto = {
+    name: document.getElementById("name").value,
+    price: document.getElementById("price").value,
+    currency: document.getElementById("currency").value,
+    description: document.getElementById("description").value,
+    platform: document.getElementById("platform").value,
+    region: document.getElementById("region").value,
+    image: document.getElementById("image").value,
+    affiliateLink: document.getElementById("affiliateLink").value
+  };
+
+  try {
+    const res = await fetch(`${window.API_URL}/api/products/${productId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(produto)
+    });
+
+    if (res.ok) {
+      alert("✅ Produto atualizado com sucesso!");
+      window.location.href = "dashboard.html";
+    } else {
+      alert("❌ Erro ao atualizar produto");
+    }
+  } catch (err) {
+    console.error("Erro ao salvar:", err);
+  }
+});
+
+loadProduct();
+</script>
+
+</body>
+</html>

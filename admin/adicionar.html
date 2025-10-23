@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Produto</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>🌍 GlobalAfiliados - Admin</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="adicionar.html">Adicionar Produto</a>
+      <a href="../index.html">Sair</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h2>➕ Adicionar Produto</h2>
+    
+    <form id="addForm" class="produto-form">
+      <label>Nome do Produto</label>
+      <input type="text" id="name" placeholder="Ex: iPhone 15 Pro Max" required>
+
+      <label>Preço</label>
+      <input type="number" id="price" step="0.01" placeholder="Ex: 8999.99" required>
+
+      <label>Moeda</label>
+     <select id="currency" required>
+     <option value="BRL">Real (R$)</option>
+     <option value="USD">Dólar (US$)</option>
+     <option value="EUR">Euro (€)</option>
+     </select>
+
+      <label>Descrição</label>
+      <textarea id="description" placeholder="Breve descrição do produto"></textarea>
+
+      <label>Plataforma</label>
+      <select id="platform" required>
+        <option value="">Selecione...</option>
+        <option>Amazon</option>
+        <option>Mercado Livre</option>
+        <option>Magazine Luiza</option>
+      </select>
+
+      <label>Região</label>
+      <select id="region" required>
+       <option value="Brasil">Brasil</option>
+       <option value="Estados Unidos">Estados Unidos</option>
+       <option value="Europa">Europa</option>
+      </select>
+
+      <label>Link da Imagem</label>
+      <input type="text" id="image" placeholder="https://..." required> 
+
+      <label>Link de Afiliado</label>
+      <input type="url" id="affiliate" placeholder="Cole o link do afiliado" required> 
+
+      <button type="submit">Salvar Produto</button>
+    </form>
+
+    <p id="msg"></p>
+  </main>
+
+<script src="./js/config.js"></script>
+<script>
+if (!localStorage.getItem("token")) {
+  window.location.href = "index.html";
+}
+
+document.getElementById("addForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const price = document.getElementById("price").value;
+  const description = document.getElementById("description").value;
+  const platform = document.getElementById("platform").value;
+  const image = document.getElementById("image").value;
+  const affiliateLink = document.getElementById("affiliate").value;
+  const currency = document.getElementById("currency").value;
+  const region = document.getElementById("region").value;
+
+  try {
+    const res = await fetch(`${window.API_URL}/api/products`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        name, price, description, image, platform,
+        affiliateLink, currency, region
+      })
+    });
+
+    const data = await res.json();
+    console.log("✅ Produto salvo:", data);
+    document.getElementById("msg").innerText = "✅ Produto adicionado com sucesso!";
+    document.getElementById("addForm").reset();
+  } catch (err) {
+    console.error("❌ Erro ao adicionar produto:", err);
+    document.getElementById("msg").innerText = "❌ Erro ao adicionar produto!";
+  }
+});
+</script>
+
+
+</body>
+</html>

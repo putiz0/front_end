@@ -1,0 +1,202 @@
+/* ======== RESET ======== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ======== CORES ======== */
+:root {
+  --verde: #00bfa6;
+  --verde-escuro: #008f7a;
+  --preto: #111;
+  --cinza: #f4f4f4;
+  --branco: #fff;
+}
+
+/* ======== HEADER ======== */
+header.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--branco);
+  padding: 15px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+header nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: var(--preto);
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+header nav a:hover {
+  color: var(--verde);
+}
+
+/* ======== HERO ======== */
+.hero {
+  text-align: center;
+  padding: 40px 10px;
+  background: linear-gradient(to right, var(--verde), var(--verde-escuro));
+  color: var(--branco);
+}
+
+.hero h1 {
+  font-size: 1.8rem;
+}
+
+.hero p {
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+/* ======== FILTROS ======== */
+.filtros {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  flex-wrap: wrap;
+  background: var(--cinza);
+}
+
+.filtros input,
+.filtros select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 160px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* ======== PRODUTOS ======== */
+main.produtos,
+#products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+.produto-card,
+.product-card {
+  background: var(--branco);
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+  max-width: 260px;
+  transition: transform 0.2s ease;
+}
+
+.produto-card:hover,
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.produto-card img,
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  position: relative;
+}
+
+.produto-card h3,
+.product-card h3 {
+  font-size: 1rem;
+  margin: 10px;
+  color: var(--preto);
+}
+
+.produto-card p,
+.product-card p {
+  margin: 0 10px 5px;
+  color: #555;
+}
+
+.produto-card .preco,
+.product-card strong {
+  color: var(--verde);
+  font-weight: 700;
+  margin: 0 10px 10px;
+  display: block;
+}
+
+.produto-card .plataforma {
+  font-size: 0.8rem;
+  margin: 0 10px 10px;
+  color: #777;
+}
+
+.btn {
+  display: block;
+  background: var(--verde);
+  color: var(--branco);
+  text-align: center;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: var(--verde-escuro);
+}
+
+/* ======== FOOTER ======== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--branco);
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 768px) {
+  header.header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero {
+    padding: 30px 15px;
+  }
+
+  main.produtos {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .produto-card img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+  .filtros input,
+  .filtros select {
+    width: 100%;
+  }
+}

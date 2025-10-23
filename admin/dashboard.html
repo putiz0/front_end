@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - GlobalAfiliados</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🌍 GlobalAfiliados</div>
+    <nav>
+      <a href="adicionar.html">Adicionar Produto</a>
+      <a href="#" id="logout">Sair</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <h1>Gerenciar Produtos</h1>
+    <div id="produtos-lista" class="produtos"></div>
+  </main>
+
+<script src="./js/config.js"></script>
+<script>
+if (!localStorage.getItem("auth")) {
+  window.location.href = "index.html";
+}
+
+document.getElementById("logout").addEventListener("click", () => {
+  localStorage.removeItem("auth");
+  window.location.href = "index.html";
+});
+
+async function loadProducts() {
+  try {
+    const res = await fetch(`${window.API_URL}/api/products`);
+    const products = await res.json();
+
+    const container = document.getElementById("produtos-lista");
+    container.innerHTML = "";
+
+    products.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "produto-card";
+      card.innerHTML = `
+        <img src="${p.image || 'https://via.placeholder.com/200'}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>${p.description || ""}</p>
+        <strong>${p.currency} ${p.price}</strong>
+        <p><small>${p.platform} - ${p.region}</small></p>
+        <div class="acoes">
+          <button onclick="editarProduto('${p._id}')">✏️ Editar</button>
+          <button onclick="excluirProduto('${p._id}')">🗑️ Excluir</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error("Erro ao carregar produtos:", err);
+  }
+}
+
+function editarProduto(id) {
+  window.location.href = `editar.html?id=${id}`;
+}
+
+async function excluirProduto(id) {
+  if (!confirm("Tem certeza que deseja excluir este produto?")) return;
+  try {
+    await fetch(`${window.API_URL}/api/products/${id}`, { method: "DELETE" });
+    loadProducts();
+  } catch (err) {
+    console.error("Erro ao excluir:", err);
+  }
+}
+
+loadProducts();
+</script>
+
+</body>
+</html>

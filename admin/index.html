@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <main class="login-container">
+    <h2>🔐 Painel Admin</h2>
+    <form id="loginForm">
+      <label>Usuário</label>
+      <input type="text" id="username" placeholder="Digite o usuário" required>
+
+      <label>Senha</label>
+      <input type="password" id="password" placeholder="Digite a senha" required>
+
+      <button type="submit">Entrar</button>
+      <p id="msg" style="color:red; font-size:14px;"></p>
+    </form>
+  </main>
+
+<script src="./js/config.js"></script>
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const expiry = Date.now() + 2 * 60 * 60 * 1000; // 2h
+  localStorage.setItem("auth", JSON.stringify({ user: "mikayas", expiry }));
+
+  try {
+    const res = await fetch(`${window.API_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      localStorage.setItem("token", data.token);
+      window.location.href = "dashboard.html";
+    } else {
+      document.getElementById("msg").innerText = data.message;
+    }
+  } catch (err) {
+    console.error("Erro:", err);
+    document.getElementById("msg").innerText = "Erro de conexão com o servidor!";
+  }
+});
+</script>
+
+</body>
+</html>
