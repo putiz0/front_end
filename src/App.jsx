@@ -1,11 +1,26 @@
-import React from "react";
-import ProductsPage from "./pages/ProductsPage";
+import React, { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    console.log("✅ App.jsx carregado com sucesso!");
+  }, []);
+
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>📦 Lista de Produtos</h1>
-      <ProductsPage />
+    <div className="app-container">
+      <header className="header">
+        <h1>🌍 GlobalAfiliados</h1>
+        <p>Os melhores produtos das principais plataformas globais</p>
+      </header>
+
+      <main>
+        <section id="products">
+          {/* Os produtos serão carregados aqui pelo JS principal */}
+        </section>
+      </main>
+
+      <footer>
+        <p>© 2025 GlobalAfiliados - Todos os direitos reservados</p>
+      </footer>
     </div>
   );
 }

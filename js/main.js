@@ -1,76 +1,91 @@
 console.log("✅ main.js carregado");
 
-// ✅ URL da API no Render
-const API_URL = "https://node-api-gc77.onrender.com";
+// URL da API (Render)
+const API_URL = "https://node-api-gc77.onrender.com/api/products";
 console.log("🌐 API em uso:", API_URL);
 
-let allProducts = [];
+// Referências
+const productsContainer = document.getElementById("products");
+const searchInput = document.getElementById("buscar");
+const plataformaSelect = document.getElementById("plataforma");
+const categoriaSelect = document.getElementById("categoria");
+const regiaoSelect = document.getElementById("regiao");
 
-// Detectar região automática
-function setDefaultRegion() {
-  const lang = navigator.language || navigator.userLanguage;
-  const country = lang.includes("pt") ? "Brasil" : "Estados Unidos";
-  console.log("🌎 Região detectada:", country);
-}
-
-// Carregar produtos do backend
-async function loadProducts() {
+// Função para buscar produtos
+async function fetchProducts() {
   try {
-    const res = await fetch(`${API_URL}/api/products`);
-    if (!res.ok) throw new Error(`Erro HTTP: ${res.status}`);
-
-    allProducts = await res.json();
-    console.log("📦 Produtos recebidos:", allProducts);
-
-    applyFilters();
-  } catch (err) {
-    console.error("❌ Erro ao carregar produtos:", err);
-    document.getElementById("products").innerHTML =
-      "<p>Erro ao conectar com o servidor.</p>";
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Erro ao buscar produtos");
+    const data = await response.json();
+    renderProducts(data);
+  } catch (error) {
+    console.error("❌ Erro ao carregar produtos:", error);
+    productsContainer.innerHTML = "<p>Erro ao carregar produtos.</p>";
   }
 }
 
-// Aplicar filtros
-function applyFilters() {
-  const search = document.getElementById("buscar")?.value?.toLowerCase() || "";
-  const plataforma = document.getElementById("plataforma")?.value || "Todas as plataformas";
-  const categoria = document.getElementById("categoria")?.value || "Todas as categorias";
-  const regiao = document.getElementById("regiao")?.value || "Todas as regiões";
+// Renderizar produtos na tela
+function renderProducts(produtos) {
+  productsContainer.innerHTML = "";
 
-  const filtered = allProducts.filter(p => {
-    const matchSearch = p.name?.toLowerCase().includes(search);
-    const matchPlatform = plataforma === "Todas as plataformas" || p.platform === plataforma;
-    const matchCategory = categoria === "Todas as categorias" || p.category === categoria;
-    const matchRegion = regiao === "Todas as regiões" || p.region === regiao;
-    return matchSearch && matchPlatform && matchCategory && matchRegion;
+  if (!produtos || produtos.length === 0) {
+    productsContainer.innerHTML = "<p>Nenhum produto encontrado.</p>";
+    return;
+  }
+
+  produtos.forEach(prod => {
+    const card = document.createElement("div");
+    card.classList.add("produto");
+
+    card.innerHTML = `
+      <img src="${prod.image || "https://via.placeholder.com/200"}" alt="${prod.name}">
+      <h3>${prod.name}</h3>
+      <p>${prod.description || ""}</p>
+      <strong>${prod.currency || "R$"} ${prod.price || "0,00"}</strong>
+      <p><small>${prod.platform || "Plataforma"} - ${prod.region || "Global"}</small></p>
+      <a href="${prod.affiliateLink || "#"}" target="_blank" rel="noopener noreferrer">Comprar 🔗</a>
+    `;
+
+    productsContainer.appendChild(card);
   });
-
-  renderProducts(filtered);
 }
 
-// Renderizar produtos
-function renderProducts(products) {
-  const container = document.getElementById("products");
-  if (!container) return;
+// Filtros
+function applyFilters(produtos) {
+  const busca = searchInput.value.toLowerCase();
+  const plataforma = plataformaSelect.value.toLowerCase();
+  const categoria = categoriaSelect.value.toLowerCase();
+  const regiao = regiaoSelect.value.toLowerCase();
 
-  container.innerHTML = products.length
-    ? products.map(p => `
-      <div class="produto-card">
-        <img src="${p.image || "https://via.placeholder.com/200"}" alt="${p.name}">
-        <h3>${p.name}</h3>
-        <p class="preco">${p.currency || "R$"} ${p.price}</p>
-        <p class="plataforma">${p.platform} - ${p.region}</p>
-        <a href="${p.affiliateLink}" target="_blank" class="btn">Comprar</a>
-      </div>
-    `).join("")
-    : "<p>Nenhum produto encontrado.</p>";
+  return produtos.filter(prod => {
+    const matchesBusca = prod.name.toLowerCase().includes(busca);
+    const matchesPlataforma = !plataforma || prod.platform?.toLowerCase() === plataforma;
+    const matchesCategoria = !categoria || prod.category?.toLowerCase() === categoria;
+    const matchesRegiao = !regiao || prod.region?.toLowerCase() === regiao;
+
+    return matchesBusca && matchesPlataforma && matchesCategoria && matchesRegiao;
+  });
 }
 
-// Eventos dos filtros
-document.getElementById("buscar")?.addEventListener("input", applyFilters);
-document.getElementById("plataforma")?.addEventListener("change", applyFilters);
-document.getElementById("categoria")?.addEventListener("change", applyFilters);
-document.getElementById("regiao")?.addEventListener("change", applyFilters);
+// Função principal
+async function init() {
+  try {
+    const response = await fetch(API_URL);
+    const produtos = await response.json();
 
-// Inicialização
-loadProducts();
+    renderProducts(produtos);
+
+    // Atualiza quando o usuário usar filtros
+    [searchInput, plataformaSelect, categoriaSelect, regiaoSelect].forEach(el => {
+      el.addEventListener("input", () => {
+        const filtrados = applyFilters(produtos);
+        renderProducts(filtrados);
+      });
+    });
+  } catch (error) {
+    console.error("Erro ao iniciar:", error);
+  }
+}
+
+// Inicia o site
+init();

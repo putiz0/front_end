@@ -1,95 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="GlobalAfiliados - Produtos do mundo todo com links de afiliado otimizados. Compare preços, categorias e ganhe descontos exclusivos em eletrônicos, moda e casa.">
-  <meta name="keywords" content="afiliados, marketplace, amazon, mercado livre, magazine luiza, descontos, produtos online, compras">
-  <meta name="author" content="GlobalAfiliados">
-  <meta name="theme-color" content="#1565c0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Open Graph para Redes Sociais -->
-  <meta property="og:title" content="GlobalAfiliados - Produtos do Mundo Todo">
-  <meta property="og:description" content="Descubra os melhores produtos globais com comissões garantidas. Eletrônicos, moda, casa e muito mais.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://globalafiliados.com">
-  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=GlobalAfiliados">
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="GlobalAfiliados - Produtos do mundo todo com links de afiliado otimizados. Compare preços, categorias e ganhe descontos exclusivos em eletrônicos, moda e casa." />
+  <meta name="keywords" content="afiliados, marketplace, amazon, mercado livre, magazine luiza, descontos, produtos online, compras" />
+  <meta name="author" content="GlobalAfiliados" />
+  <meta name="theme-color" content="#1565c0" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GlobalAfiliados - Produtos do Mundo Todo" />
+  <meta property="og:description" content="Descubra os melhores produtos globais com comissões garantidas. Eletrônicos, moda, casa e muito mais." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://globalafiliados.com" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630?text=GlobalAfiliados" />
+
   <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GlobalAfiliados - Produtos do Mundo Todo">
-  <meta name="twitter:description" content="Descubra os melhores produtos globais com comissões garantidas.">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://globalafiliados.com">
-  
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GlobalAfiliados - Produtos do Mundo Todo" />
+  <meta name="twitter:description" content="Descubra os melhores produtos globais com comissões garantidas." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://globalafiliados.com" />
+
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231565c0' width='100' height='100'/><text x='50' y='65' font-size='60' fill='white' text-anchor='middle' font-weight='bold'>GA</text></svg>">
-  
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
-  
-  <!-- Manifest para PWA -->
-  <link rel="manifest" href="manifest.json">
-  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231565c0' width='100' height='100'/><text x='50' y='65' font-size='60' fill='white' text-anchor='middle' font-weight='bold'>GA</text></svg>" />
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
   <title>GlobalAfiliados - Produtos do Mundo Todo | Eletrônicos, Moda e Casa</title>
 </head>
+
 <body>
-  <!-- Skip to Content Link (Acessibilidade - Invisível) -->
   <a href="#main-content" class="skip-link">Ir para conteúdo principal</a>
 
-  <!-- HEADER -->
   <header class="header" role="banner">
-    <div class="logo" aria-label="GlobalAfiliados - Ir para página inicial">
-      🌍 GlobalAfiliados
-    </div>
+    <div class="logo" aria-label="GlobalAfiliados - Página inicial">🌍 GlobalAfiliados</div>
     <nav role="navigation" aria-label="Navegação principal">
       <a href="index.html" aria-current="page">Produtos</a>
       <a href="admin/index.html">Admin</a>
     </nav>
   </header>
 
-  <!-- HERO SECTION -->
   <section class="hero" role="region" aria-label="Seção de destaque">
     <h1>Produtos em Destaque</h1>
-    <p>Os melhores produtos das principai plataforma global</p>
+    <p>Os melhores produtos das principais plataformas globais</p>
   </section>
 
-  <!-- FILTROS -->
   <section class="filtros" role="region" aria-label="Filtros de busca">
-    <input 
-      type="text" 
-      id="buscar" 
-      placeholder="Buscar produtos..."
-      aria-label="Buscar produtos por nome"
-    >
-
-    <select 
-      id="plataforma"
-      aria-label="Filtrar por plataforma"
-    >
+    <input type="text" id="buscar" placeholder="Buscar produtos..." aria-label="Buscar produtos por nome" />
+    <select id="plataforma" aria-label="Filtrar por plataforma">
       <option value="">Todas as plataformas</option>
       <option value="amazon">Amazon</option>
       <option value="mercado-livre">Mercado Livre</option>
       <option value="magazine-luiza">Magazine Luiza</option>
     </select>
-
-    <select 
-      id="categoria"
-      aria-label="Filtrar por categoria"
-    >
+    <select id="categoria" aria-label="Filtrar por categoria">
       <option value="">Todas as categorias</option>
       <option value="eletronicos">Eletrônicos</option>
       <option value="moda">Moda</option>
       <option value="casa">Casa</option>
     </select>
-
-    <select 
-      id="regiao"
-      aria-label="Filtrar por região"
-    >
+    <select id="regiao" aria-label="Filtrar por região">
       <option value="">Todas as regiões</option>
       <option value="brasil">Brasil</option>
       <option value="estados-unidos">Estados Unidos</option>
@@ -97,27 +78,23 @@
     </select>
   </section>
 
-  <!-- MAIN CONTENT -->
   <main id="main-content" role="main">
-    <section id="products" aria-label="Lista de produtos" role="region">
-      <!-- Produtos serão carregados aqui via JavaScript -->
-    </section>
+    <!-- React monta aqui -->
+    <div id="root"></div>
   </main>
 
-  <!-- PAGINAÇÃO -->
   <div id="pagination" class="paginacao" role="navigation" aria-label="Paginação de produtos"></div>
 
-  <!-- FOOTER -->
   <footer role="contentinfo">
     <p>&copy; 2025 GlobalAfiliados - Todos os direitos reservados</p>
     <p>
-      <a href="#privacidade">Política de Privacidade</a> | 
-      <a href="#termos">Termos de Serviço</a> | 
-      <a href="#contato">Contacto</a>
+      <a href="#privacidade">Política de Privacidade</a> |
+      <a href="#termos">Termos de Serviço</a> |
+      <a href="#contato">Contato</a>
     </p>
   </footer>
 
-  <!-- Schema Markup (Dados Estruturados) -->
+  <!-- Dados Estruturados -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -127,23 +104,23 @@
     "description": "Portal de produtos globais de afiliados",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://globalafiliados.com?search={search_term_string}"
-      },
+      "target": "https://globalafiliados.com?search={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
   </script>
 
-  <!-- JavaScript -->
-  <script type="module" src="js/main.js"></script>
+  <!-- JavaScript principal -->
+  <script src="js/main.js"></script>
 
-  <!-- Service Worker para PWA -->
+  <!-- React (App principal) -->
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Service Worker -->
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch(err => {
-        console.log('Service Worker registration failed:', err);
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(err => {
+        console.log("Service Worker registration failed:", err);
       });
     }
   </script>
