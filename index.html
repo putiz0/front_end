@@ -7,7 +7,6 @@
   <meta name="keywords" content="afiliados, marketplace, amazon, mercado livre, magazine luiza, descontos, produtos online, compras" />
   <meta name="author" content="GlobalAfiliados" />
   <meta name="theme-color" content="#1565c0" />
-  
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -35,8 +34,8 @@
   <!-- Manifest PWA -->
   <link rel="manifest" href="manifest.json" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- CSS: Corrigido para caminho absoluto (/css/style.css) para o Vercel -->
+  <link rel="stylesheet" href="/css/style.css" />
 
   <title>GlobalAfiliados - Produtos do Mundo Todo | Eletrônicos, Moda e Casa</title>
 </head>
@@ -80,12 +79,9 @@
   </section>
 
   <main id="main-content" role="main">
-    <!-- 
-      CORREÇÃO: Voltamos a usar o <section id="products">
-      que o seu 'js/main.js' usa para renderizar os produtos.
-    -->
+    <!-- O main.js insere os produtos nesta seção (ID: products) -->
     <section id="products" aria-label="Lista de produtos" role="region">
-      <!-- Produtos serão carregados aqui via JavaScript -->
+      <p class="loading-message">Carregando produtos...</p>
     </section>
   </main>
 
@@ -103,28 +99,24 @@
   <!-- Dados Estruturados -->
   <script type="application/ld+json">
   {
-    "@context": "httpsS://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "GlobalAfiliados",
     "url": "https://globalafiliados.com",
     "description": "Portal de produtos globais de afiliados",
     "potentialAction": {
-      "@type" : "SearchAction",
-      "target" : {
-        "@type" : "EntryPoint",
-        "urlTemplate" : "httpsS://globalafiliados.com?search={search_term_string}"
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://globalafiliados.com?search={search_term_string}"
       },
-      "query-input" : "required name=search_term_string"
+      "query-input": "required name=search_term_string"
     }
   }
   </script>
 
-  <!-- 
-    REMOVIDO: O React ('/src/main.jsx') foi removido.
-  -->
-
   <!-- JavaScript principal (JS Puro) -->
-  <script src="js/main.js" defer></script>
+  <script src="/js/main.js" defer></script>
 
   <!-- Service Worker -->
   <script>
