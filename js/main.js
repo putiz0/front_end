@@ -20,12 +20,19 @@ async function fetchProducts() {
     renderProducts(data);
   } catch (error) {
     console.error("❌ Erro ao carregar produtos:", error);
-    productsContainer.innerHTML = "<p>Erro ao carregar produtos.</p>";
+    if (productsContainer) {
+      productsContainer.innerHTML = "<p>Erro ao carregar produtos.</p>";
+    }
   }
 }
 
 // Renderizar produtos na tela
 function renderProducts(produtos) {
+  if (!productsContainer) {
+    console.error("Elemento #products não encontrado.");
+    return;
+  }
+  
   productsContainer.innerHTML = "";
 
   if (!produtos || produtos.length === 0) {
@@ -69,6 +76,12 @@ function applyFilters(produtos) {
 
 // Função principal
 async function init() {
+  // Garante que os elementos existam antes de adicionar listeners
+  if (!searchInput || !plataformaSelect || !categoriaSelect || !regiaoSelect) {
+    console.error("Elementos de filtro não encontrados.");
+    return;
+  }
+
   try {
     const response = await fetch(API_URL);
     const produtos = await response.json();
@@ -88,4 +101,10 @@ async function init() {
 }
 
 // Inicia o site
-init();
+// Adicionado 'defer' no HTML, então o DOM deve estar pronto, mas 
+// uma verificação extra não faz mal.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}

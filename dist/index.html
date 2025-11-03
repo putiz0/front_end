@@ -8,7 +8,6 @@
   <meta name="author" content="GlobalAfiliados" />
   <meta name="theme-color" content="#1565c0" />
   
-  <!-- CORRIGIDO: Substituída a meta tag depreciada pela recomendada -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -39,7 +38,6 @@
   <!-- CSS -->
 
   <title>GlobalAfiliados - Produtos do Mundo Todo | Eletrônicos, Moda e Casa</title>
-  <script type="module" crossorigin src="/assets/index-B4IChihJ.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-CvfKgpc8.css">
 </head>
 
@@ -82,12 +80,14 @@
   </section>
 
   <main id="main-content" role="main">
-    <!-- React monta aqui -->
-    <div id="root"></div>
+    <!-- 
+      CORREÇÃO: Voltamos a usar o <section id="products">
+      que o seu 'js/main.js' usa para renderizar os produtos.
+    -->
+    <section id="products" aria-label="Lista de produtos" role="region">
+      <!-- Produtos serão carregados aqui via JavaScript -->
+    </section>
   </main>
-
-  <!-- Elemento usado pelo JS puro. Se você estiver migrando, deve remover/mover isso. -->
-  <div id="products"></div>
 
   <div id="pagination" class="paginacao" role="navigation" aria-label="Paginação de produtos"></div>
 
@@ -103,20 +103,28 @@
   <!-- Dados Estruturados -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
+    "@context": "httpsS://schema.org",
     "@type": "WebSite",
     "name": "GlobalAfiliados",
     "url": "https://globalafiliados.com",
     "description": "Portal de produtos globais de afiliados",
     "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://globalafiliados.com?search={search_term_string}",
-      "query-input": "required name=search_term_string"
+      "@type" : "SearchAction",
+      "target" : {
+        "@type" : "EntryPoint",
+        "urlTemplate" : "httpsS://globalafiliados.com?search={search_term_string}"
+      },
+      "query-input" : "required name=search_term_string"
     }
   }
   </script>
 
-  <!-- React (App principal) - Caminho corrigido para garantir que o Vite encontre o módulo -->
+  <!-- 
+    REMOVIDO: O React ('/src/main.jsx') foi removido.
+  -->
+
+  <!-- JavaScript principal (JS Puro) -->
+  <script src="js/main.js" defer></script>
 
   <!-- Service Worker -->
   <script>
