@@ -7,6 +7,8 @@
   <meta name="keywords" content="afiliados, marketplace, amazon, mercado livre, magazine luiza, descontos, produtos online, compras" />
   <meta name="author" content="GlobalAfiliados" />
   <meta name="theme-color" content="#1565c0" />
+  
+  <!-- CORRIGIDO: Substituída a meta tag depreciada pela recomendada -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -37,7 +39,7 @@
   <!-- CSS -->
 
   <title>GlobalAfiliados - Produtos do Mundo Todo | Eletrônicos, Moda e Casa</title>
-  <script type="module" crossorigin src="/assets/index-BgNrz9-9.js"></script>
+  <script type="module" crossorigin src="/assets/index-B4IChihJ.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-CvfKgpc8.css">
 </head>
 
@@ -84,6 +86,9 @@
     <div id="root"></div>
   </main>
 
+  <!-- Elemento usado pelo JS puro. Se você estiver migrando, deve remover/mover isso. -->
+  <div id="products"></div>
+
   <div id="pagination" class="paginacao" role="navigation" aria-label="Paginação de produtos"></div>
 
   <footer role="contentinfo">
@@ -111,10 +116,7 @@
   }
   </script>
 
-  <!-- JavaScript principal -->
-  <script src="js/main.js"></script>
-
-  <!-- React (App principal) -->
+  <!-- React (App principal) - Caminho corrigido para garantir que o Vite encontre o módulo -->
 
   <!-- Service Worker -->
   <script>
