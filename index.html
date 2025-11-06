@@ -36,7 +36,6 @@
   <link rel="manifest" href="manifest.json" />
 
   <!-- CSS -->
-  <!-- Mantendo o caminho absoluto para compatibilidade com deploy no Vercel -->
   <link rel="stylesheet" href="/css/style.css" />
 
   <title>GlobalAfiliados - Produtos do Mundo Todo | Eletrônicos, Moda e Casa</title>
@@ -118,7 +117,7 @@
   </script>
 
   <!-- JavaScript principal (JS Puro) -->
-  <!-- Usando caminho absoluto (/js/main.js) para garantir que o navegador encontre o script corretamente em qualquer rota -->
+  <!-- Removido o type="module" e mantido o caminho absoluto e 'defer' para carregamento assíncrono seguro. -->
   <script src="/js/main.js" defer></script>
 
   <!-- Service Worker -->
