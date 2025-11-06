@@ -113,3 +113,4 @@ async function init() {
 
 // Inicia o site após o DOM estar completamente carregado
 document.addEventListener('DOMContentLoaded', init);
+ 
