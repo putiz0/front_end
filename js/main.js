@@ -1,4 +1,5 @@
 console.log("✅ main.js carregado");
+// Adiciona um log para confirmar que o script principal está rodando, o que ajuda a diagnosticar problemas de carregamento.
 
 // URL da API (Render)
 const API_URL = "https://node-api-gc77.onrender.com/api/products";
