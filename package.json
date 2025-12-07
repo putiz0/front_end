@@ -2,17 +2,25 @@
   "name": "afiliados-frontend",
   "version": "1.0.0",
   "private": true,
+  "description": "GlobalAfiliados - Portal de produtos globais",
   "type": "module",
+  
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "chmod +x node_modules/.bin/vite && vite build",
     "preview": "vite preview"
   },
+
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
+
   "devDependencies": {
     "vite": "^5.4.0"
+  },
+
+  "engines": {
+    "node": "18.x"
   }
 }
